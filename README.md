@@ -176,7 +176,6 @@ Full pricing: https://akta.pro/pricing · Rate limits: https://docs.akta.pro/get
 - Pricing: https://akta.pro/pricing
 - Changelog: https://docs.akta.pro/changelog
 - Contact / Sales: https://docs.akta.pro/contact
-- Community (Discord): https://docs.akta.pro/discord
 - LinkedIn: https://www.linkedin.com/company/akta-pro
 - X / Twitter: https://x.com/akta_pro
 
