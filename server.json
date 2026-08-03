@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.akta-pro/akta.pro-MCP",
+  "name": "io.github.nishitasetia/akta.pro-MCP",
   "description": "Private company data & real-time news signals for AI agents.",
   "websiteUrl": "https://akta.pro",
   "repository": {
