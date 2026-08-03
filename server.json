@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.akta-pro/akta.pro-MCP",
+  "description": "Private company data & real-time news signals for AI agents.",
+  "websiteUrl": "https://akta.pro",
+  "repository": {
+    "url": "https://github.com/akta-pro/akta.pro-MCP",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.akta.pro/mcp"
+    }
+  ]
+}
