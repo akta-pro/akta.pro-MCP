@@ -10,7 +10,7 @@ akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, and other MCP clients to
 - **Website:** https://akta.pro · **Docs:** https://docs.akta.pro
 - **Publisher:** Wokelo AI (https://wokelo.ai)
 - **Transport:** HTTP (streamable HTTP / SSE-compatible) — remote server, no local install
-- **Auth:** OAuth (Claude/ChatGPT web) **or** `x-api-key` header (Cursor, VS Code, Claude Code, OpenCode, CLI)
+- **Auth:** OAuth (Claude/ChatGPT web) **or** `x-api-key` header
 
 ---
 
