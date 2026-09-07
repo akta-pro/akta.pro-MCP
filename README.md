@@ -148,7 +148,7 @@ claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
 ## Authentication
 
 - **OAuth** — web clients (Claude, ChatGPT).
-- **`x-api-key` header** — CLI/IDE clients (Cursor, VS Code, Claude Code, OpenCode).
+- **`x-api-key` header** 
 - API key signup: https://playground.akta.pro/signup
 - API key management: https://playground.akta.pro/dashboard/manage/api-keys
 
