@@ -7,10 +7,10 @@ Give your AI agent structured intelligence on 20M+ private companies plus entity
 akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, and other MCP clients to enterprise-grade private company data and real-time news signals. 20M+ entity-resolved companies, 70+ data points each, 30K+ sub-sectors monitored, and ~80% news noise filtered — pay-as-you-go.
 
 - **Server URL:** `https://mcp.akta.pro/mcp`
-- **Website:** https://akta.pro · **Docs:** https://docs.akta.pro
-- **Publisher:** Wokelo AI (https://wokelo.ai)
+- **Website:** [https://akta.pro](https://akta.pro) · **Docs:** [https://docs.akta.pro](https://docs.akta.pro)
+- **Publisher:** Wokelo AI ([https://wokelo.ai](https://wokelo.ai))
 - **Transport:** HTTP (streamable HTTP / SSE-compatible) — remote server, no local install
-- **Auth:** OAuth (Claude/ChatGPT web) **or** `x-api-key` header
+- **Auth:** Native connector auth (Claude) · OAuth (ChatGPT) · `x-api-key` header (Cursor, VS Code, Claude Code, OpenCode)
 
 ---
 
@@ -49,7 +49,7 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 | --- | --- |
 | `company_search` | Resolve a company by name or website to akta identifiers (uuid, website, status). |
 | `industry_search` | Resolve a free-text industry/topic to ranked industry codes; used to filter news. |
-| `account_status` | Returns plan tier (is_enterprise, package_type) and remaining credit balance. |
+| `account_status` | Returns plan tier (is\_enterprise, package\_type) and remaining credit balance. |
 | `news_types` | Returns the news-type taxonomy: 77 tag codes across 11 categories. |
 
 ### Company data
@@ -64,7 +64,7 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 | Tool | Description |
 | --- | --- |
 | `news_signals` | List news filtered by company, industry, query, or title with sentiment and AI summaries. No full article body. |
-| `news_detail` | Full article body for specific article IDs from news_signals (max 10 per call). |
+| `news_detail` | Full article body for specific article IDs from news\_signals (max 10 per call). |
 
 ### Alternative signals (Subscription or Enterprise)
 
@@ -85,7 +85,7 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 
 1. Settings (or Customize) → Connectors → Add Connectors
 2. Name: `akta-pro` · Server URL: `https://mcp.akta.pro/mcp`
-3. Click Add, complete OAuth.
+3. Click Add, then complete the authentication.
 
 ### ChatGPT
 
@@ -96,7 +96,7 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 
 ### Claude Code
 
-```bash
+```
 claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
   --header "x-api-key: <YOUR_API_KEY>"
 ```
@@ -147,18 +147,19 @@ claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
 
 ## Authentication
 
-- **OAuth** — web clients (Claude, ChatGPT).
-- **`x-api-key` header** 
-- API key signup: https://playground.akta.pro/signup
-- API key management: https://playground.akta.pro/dashboard/manage/api-keys
+- **Native connector auth** — Claude Web/Desktop (no API key required).
+- **OAuth** — ChatGPT.
+- **`x-api-key` header** — Cursor, VS Code, Claude Code, OpenCode.
+  - API key signup: [https://playground.akta.pro/signup](https://playground.akta.pro/signup)
+  - API key management: [https://playground.akta.pro/dashboard/manage/api-keys](https://playground.akta.pro/dashboard/manage/api-keys)
 
 ## Pricing
 
 - **Pay-as-you-go** — no minimum, credits purchased upfront, per-tool billing.
-- **Subscription** — unlocks alternative-signal tools (headcount_trends, website_traffic, employee_reviews, product_reviews, job_posts, social_posts).
-- **Enterprise** — unlocks funding_detail and mna_and_investment sections plus enterprise SLAs, bulk export, and dedicated support.
+- **Subscription** — unlocks alternative-signal tools (headcount\_trends, website\_traffic, employee\_reviews, product\_reviews, job\_posts, social\_posts).
+- **Enterprise** — unlocks funding\_detail and mna\_and\_investment sections plus enterprise SLAs, bulk export, and dedicated support.
 
-Full pricing: https://akta.pro/pricing · Rate limits: https://docs.akta.pro/getting-started/rate-limits · Error codes: https://docs.akta.pro/getting-started/error-codes
+Full pricing: [https://akta.pro/pricing](https://akta.pro/pricing) · Rate limits: [https://docs.akta.pro/getting-started/rate-limits](https://docs.akta.pro/getting-started/rate-limits) · Error codes: [https://docs.akta.pro/getting-started/error-codes](https://docs.akta.pro/getting-started/error-codes)
 
 ## Compliance & trust
 
@@ -166,18 +167,18 @@ Full pricing: https://akta.pro/pricing · Rate limits: https://docs.akta.pro/get
 - ISO 27001 compliant
 - End-to-end encrypted in transit and at rest
 - No customer data is used to train AI models
-- OpenAPI spec: https://docs.akta.pro/openapi.json
-- LLM-friendly docs: https://docs.akta.pro/llms.txt · https://docs.akta.pro/llms-full.txt
+- OpenAPI spec: [https://docs.akta.pro/openapi.json](https://docs.akta.pro/openapi.json)
+- LLM-friendly docs: [https://docs.akta.pro/llms.txt](https://docs.akta.pro/llms.txt) · [https://docs.akta.pro/llms-full.txt](https://docs.akta.pro/llms-full.txt)
 
 ## Links
 
-- Website: https://akta.pro
-- Documentation: https://docs.akta.pro
-- Pricing: https://akta.pro/pricing
-- Changelog: https://docs.akta.pro/changelog
-- Contact / Sales: https://docs.akta.pro/contact
-- LinkedIn: https://www.linkedin.com/company/akta-pro
-- X / Twitter: https://x.com/akta_pro
+- Website: [https://akta.pro](https://akta.pro)
+- Documentation: [https://docs.akta.pro](https://docs.akta.pro)
+- Pricing: [https://akta.pro/pricing](https://akta.pro/pricing)
+- Changelog: [https://docs.akta.pro/changelog](https://docs.akta.pro/changelog)
+- Contact / Sales: [https://docs.akta.pro/contact](https://docs.akta.pro/contact)
+- LinkedIn: [https://www.linkedin.com/company/akta-pro](https://www.linkedin.com/company/akta-pro)
+- X / Twitter: [https://x.com/akta\_pro](https://x.com/akta_pro)
 
 ---
 
