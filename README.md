@@ -15,7 +15,7 @@ akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, and other MCP clients to
 
 ## Overview
 
-akta.pro MCP Server brings enterprise-grade private-markets intelligence into any MCP-compatible AI client. Built by Wokelo AI, akta.pro is the API-native private company data platform trusted by teams at KPMG, Adobe, Premji Invest, JLL, Chicago Booth, and others.
+akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, and other MCP clients to enterprise-grade private company data and real-time news signals. 20M+ entity-resolved companies, 70+ data points each, 30K+ sub-sectors monitored, and ~80% news noise filtered — pay-as-you-go.
 
 Point Claude, ChatGPT, Cursor, VS Code, or Claude Code at `https://mcp.akta.pro/mcp` and your agent can:
 
@@ -38,7 +38,7 @@ SOC 2 Type II certified, ISO 27001 compliant, end-to-end encrypted, and no custo
 - Industry classifications supported: NAICS, SIC, IPTC, IAB
 - Location fields normalized to ISO country codes
 
-## Tools (14)
+## Tools
 
 All tools are synchronous (data returned immediately, no polling). `company_data` returns Markdown; every other tool returns JSON.
 
@@ -46,10 +46,11 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 
 | Tool | Description |
 | --- | --- |
-| `company_search` | Resolve a company by name or website to akta identifiers (uuid, website, status). |
-| `industry_search` | Resolve a free-text industry/topic to ranked industry codes; used to filter news. |
-| `account_status` | Returns plan tier (is\_enterprise, package\_type) and remaining credit balance. |
-| `news_types` | Returns the news-type taxonomy: 77 tag codes across 11 categories. |
+| `company_search` | Resolve a company name or website to Akta identifiers (`uuid`, website, status) |
+| `industry_search` | Resolve a free-text industry or topic to ranked industry codes, used to filter news by industry |
+| `account_status` | Your plan tier (`is_enterprise`, `package_type`) and remaining credit balance |
+| `list_filters` | List the available filter fields for `generate_company_list` (e.g. `location.hq.country`, `firmographic.founded_year`), grouped by filter category |
+| `get_filter_values` | Get the allowed values for one or more filters (e.g. valid country codes, funding stage enums), used to build a valid `filters` payload before calling `generate_company_list` |
 
 ### Company data
 
@@ -64,6 +65,12 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 | --- | --- |
 | `news_signals` | List news filtered by company, industry, query, or title with sentiment and AI summaries. No full article body. |
 | `news_detail` | Full article body for specific article IDs from news\_signals (max 10 per call). |
+
+### List Generation:
+
+| Tool | Description |
+| --- | --- |
+| `generate_company_list` | Build a targeted list of companies using structured filters or a natural language query, with optional per-company data enrichment |
 
 ### Alternative signals (Subscription or Enterprise)
 
