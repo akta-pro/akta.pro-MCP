@@ -1,6 +1,6 @@
 # akta.pro MCP Server
 
-**Private company data & real-time news signals for AI agents.**
+**Private company data and signals API**
 
 Give your AI agent structured intelligence on 20M+ private companies plus entity-resolved, real-time news signals — via a single MCP server.
 
