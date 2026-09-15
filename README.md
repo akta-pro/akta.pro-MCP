@@ -1,30 +1,28 @@
 # akta.pro MCP Server
 
-**Private company data and signals API**
+**Private company data, news, and signals API for AI agents**
 
-Give your AI agent structured intelligence on 20M+ private companies plus entity-resolved, real-time news signals — via a single MCP server.
-
-akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, and other MCP clients to enterprise-grade private company data and real-time news signals. 20M+ entity-resolved companies, 70+ data points each, 30K+ sub-sectors monitored, and ~80% news noise filtered — pay-as-you-go.
+akta.pro MCP gives AI agents structured access to public and private company data, entity-resolved news, targeted list generation, and alternative signals. Resolve companies, retrieve rich or concise profiles, monitor real-time and historical news, build company lists, and surface headcount, web traffic, hiring, social, employee-review, and product-review signals where the plan permits. Tools return synchronously through deterministic schemas with source attribution.
 
 - **Server URL:** `https://mcp.akta.pro/mcp`
 - **Website:** [https://akta.pro](https://akta.pro) · **Docs:** [https://docs.akta.pro](https://docs.akta.pro)
-- **Transport:** HTTP (streamable HTTP / SSE-compatible) — remote server, no local install
-- **Auth:** Native connector auth (Claude) · OAuth (ChatGPT) · `x-api-key` header (Cursor, VS Code, Claude Code, OpenCode)
+- **Transport:** HTTP (Streamable HTTP / SSE-compatible) — remote server, no local install
+- **Auth:** Claude Web/Desktop: native connector authentication. ChatGPT web: OAuth. API-key clients: x-api-key header.
 
 ---
 
 ## Overview
 
-akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, and other MCP clients to enterprise-grade private company data and real-time news signals. 20M+ entity-resolved companies, 70+ data points each, 30K+ sub-sectors monitored, and ~80% news noise filtered — pay-as-you-go.
+akta.pro MCP connects Claude, ChatGPT, Cursor, VS Code, Claude Code, and other MCP clients to enterprise-grade private company data and real-time news signals. 20M+ entity-resolved companies, 70+ data points each, 30K+ sub-sectors monitored — pay-as-you-go.
 
 Point Claude, ChatGPT, Cursor, VS Code, or Claude Code at `https://mcp.akta.pro/mcp` and your agent can:
 
-- **Resolve** any company by name, website, or UUID with patent-pending entity resolution across 20M+ global entities.
+- **Resolve** any company by name, website, or UUID with entity resolution across 20M+ global entities.
 - **Enrich** private companies across 70+ structured data points — firmographics, business model, product offering, management, financials, technology stack, industry codes, and (Enterprise) funding & M&A history.
-- **Monitor** company, industry, or open-ended topic news in real time with AI summaries, sentiment scores, event-type classification (77 tag codes across 11 categories), and named-entity extraction. ~80% of noise is filtered before it hits your workflow.
-- **Surface alternative signals** (Subscription/Enterprise): LinkedIn headcount trends, website traffic, Glassdoor-style employee reviews, G2-style product reviews, live LinkedIn/Indeed job posts, and company social posts.
+- **Monitor** company, industry, or open-ended topic news in real time with AI summaries, sentiment scores, event-type classification, and source metadata. News is enriched with entity resolution, de-duplication, and named-entity extraction.
+- **Surface alternative signals** (Subscription/Enterprise): headcount trends, website traffic, employee reviews, product reviews, live job posts, and company social posts.
 
-All tools are synchronous — data is returned immediately, no polling. Responses use deterministic schemas, compact payloads, and ship with source attribution so every claim is verifiable. `company_data` is billed per section, so agents only pay for what they ask for. Free resolve-first tools (`company_search`, `industry_search`, `account_status`, `news_types`) cost 0 credits.
+All tools are synchronous — data is returned immediately, no polling. Responses use deterministic schemas, compact payloads, and ship with source attribution so every claim is verifiable. `company_data` is billed per section, so agents only pay for what they ask for. Free resolve-first tools (`company_search`, `industry_search`, `account_status`, `news_types`, `list_filters`, `get_filter_values`) cost 0 credits.
 
 SOC 2 Type II certified, ISO 27001 compliant, end-to-end encrypted, and no customer data is used to train AI models.
 
@@ -33,10 +31,9 @@ SOC 2 Type II certified, ISO 27001 compliant, end-to-end encrypted, and no custo
 - 20M+ globally entity-resolved private companies
 - 70+ structured data points per company
 - 30K+ sub-sectors monitored
-- ~80% of news noise filtered before delivery
-- News classification: 77 event-type tag codes across 11 categories
+- News enriched with entity resolution, de-duplication, AI summaries, sentiment, event classification, and source metadata
 - Industry classifications supported: NAICS, SIC, IPTC, IAB
-- Location fields normalized to ISO country codes
+- Location fields normalized to country codes
 
 ## Tools
 
@@ -46,42 +43,43 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 
 | Tool | Description |
 | --- | --- |
-| `company_search` | Resolve a company name or website to Akta identifiers (`uuid`, website, status) |
-| `industry_search` | Resolve a free-text industry or topic to ranked industry codes, used to filter news by industry |
-| `account_status` | Your plan tier (`is_enterprise`, `package_type`) and remaining credit balance |
-| `list_filters` | List the available filter fields for `generate_company_list` (e.g. `location.hq.country`, `firmographic.founded_year`), grouped by filter category |
-| `get_filter_values` | Get the allowed values for one or more filters (e.g. valid country codes, funding stage enums), used to build a valid `filters` payload before calling `generate_company_list` |
+| `company_search` | Resolve a company name or website to akta identifiers |
+| `industry_search` | Resolve free-text industry or topic language to ranked industry codes |
+| `account_status` | Return plan tier and remaining credit balance |
+| `news_types` | Return the event-type taxonomy used to filter news_signals |
+| `list_filters` | List available fields for `generate_company_list`, grouped by category |
+| `get_filter_values` | Return allowed values for one or more list-generation filters, used to build a valid filters payload |
 
 ### Company data
 
 | Tool | Description |
 | --- | --- |
 | `company_data` | Rich structured company profile as Markdown. Sections selected explicitly and billed per section. |
-| `company_data_concise` | Single condensed company overview in JSON. No section selection, flat rate, cheapest fast read. |
+| `company_data_concise` | Condensed company overview in JSON. Flat rate, no section selection. |
 
 ### News
 
 | Tool | Description |
 | --- | --- |
-| `news_signals` | List news filtered by company, industry, query, or title with sentiment and AI summaries. No full article body. |
-| `news_detail` | Full article body for specific article IDs from news\_signals (max 10 per call). |
+| `news_signals` | Discover news filtered by company, industry, query, title, sentiment, event type, date, and other supported fields. Returns summaries and metadata, not full article body. |
+| `news_detail` | Full article body for article IDs returned by news_signals (max 10 per call). |
 
-### List Generation:
+### List generation
 
 | Tool | Description |
 | --- | --- |
-| `generate_company_list` | Build a targeted list of companies using structured filters or a natural language query, with optional per-company data enrichment |
+| `generate_company_list` | Build a targeted company list from structured filters or a natural-language query, with optional per-company enrichment where supported. |
 
 ### Alternative signals (Subscription or Enterprise)
 
 | Tool | Description |
 | --- | --- |
-| `headcount_trends` | LinkedIn-sourced employee-count trends over time + functional breakdown. |
-| `website_traffic` | Engagement metrics, monthly visits, traffic-source breakdown. |
-| `employee_reviews` | Glassdoor-style overall + 8 dimension-level ratings, plus individual reviews. |
-| `product_reviews` | Product catalog and per-product reviews (G2, etc.). Call without a product ID first to list the catalog. |
-| `job_posts` | Live LinkedIn/Indeed job listings — title, location, description, compensation, experience level, skills. |
-| `social_posts` | Company social posts — content type, text, date, paid/repost flags, AI classification, engagement. |
+| `headcount_trends` | Employee-count trends and functional breakdown. |
+| `website_traffic` | Traffic and engagement estimates. |
+| `employee_reviews` | Overall, dimension-level, and individual employee-review signals. |
+| `product_reviews` | Product catalog and product-review signals. |
+| `job_posts` | Live job-posting and hiring signals. |
+| `social_posts` | Company social posts and engagement metadata. |
 
 ## Install
 
@@ -101,11 +99,9 @@ All tools are synchronous (data returned immediately, no polling). `company_data
 4. Create and complete OAuth.
 
 ### Claude Code
+claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp
+--header "x-api-key: <YOUR_API_KEY>"
 
-```
-claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
-  --header "x-api-key: <YOUR_API_KEY>"
-```
 
 ### Cursor — `~/.cursor/mcp.json`
 
@@ -124,11 +120,19 @@ claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
 
 ```json
 {
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "akta-api-key",
+      "description": "akta.pro API key",
+      "password": true
+    }
+  ],
   "servers": {
     "akta-pro": {
       "type": "http",
       "url": "https://mcp.akta.pro/mcp",
-      "headers": { "x-api-key": "YOUR_AKTA_API_KEY" }
+      "headers": { "x-api-key": "${input:akta-api-key}" }
     }
   }
 }
@@ -145,7 +149,7 @@ claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
       "url": "https://mcp.akta.pro/mcp",
       "enabled": true,
       "oauth": false,
-      "headers": { "x-api-key": "YOUR_AKTA_API_KEY" }
+      "headers": { "x-api-key": "{env:AKTA_API_KEY}" }
     }
   }
 }
@@ -162,10 +166,10 @@ claude mcp add --transport http akta-pro https://mcp.akta.pro/mcp \
 ## Pricing
 
 - **Pay-as-you-go** — no minimum, credits purchased upfront, per-tool billing.
-- **Subscription** — unlocks alternative-signal tools (headcount\_trends, website\_traffic, employee\_reviews, product\_reviews, job\_posts, social\_posts).
-- **Enterprise** — unlocks funding\_detail and mna\_and\_investment sections plus enterprise SLAs, bulk export, and dedicated support.
+- **Subscription** — unlocks alternative-signal tools (`headcount_trends`, `website_traffic`, `employee_reviews`, `product_reviews`, `job_posts`, `social_posts`).
+- **Enterprise** — unlocks `funding_detail` and `mna_and_investment` sections plus enterprise SLAs, bulk export, and dedicated support.
 
-Full pricing: [https://akta.pro/pricing](https://akta.pro/pricing) · Rate limits: [https://docs.akta.pro/getting-started/rate-limits](https://docs.akta.pro/getting-started/rate-limits) · Error codes: [https://docs.akta.pro/getting-started/error-codes](https://docs.akta.pro/getting-started/error-codes)
+Full pricing: [https://akta.pro/pricing](https://akta.pro/pricing) · MCP credits: [https://docs.akta.pro/docs/developer-tools/mcp/credits](https://docs.akta.pro/docs/developer-tools/mcp/credits)
 
 ## Compliance & trust
 
@@ -184,7 +188,7 @@ Full pricing: [https://akta.pro/pricing](https://akta.pro/pricing) · Rate limit
 - Changelog: [https://docs.akta.pro/changelog](https://docs.akta.pro/changelog)
 - Contact / Sales: [https://docs.akta.pro/contact](https://docs.akta.pro/contact)
 - LinkedIn: [https://www.linkedin.com/company/akta-pro](https://www.linkedin.com/company/akta-pro)
-- X / Twitter: [https://x.com/akta\_pro](https://x.com/akta_pro)
+- X / Twitter: [https://x.com/akta_pro](https://x.com/akta_pro)
 
 ---
 
